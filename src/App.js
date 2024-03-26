@@ -57,10 +57,10 @@ const App = ({ signOut }) => {
       error: form.get("error"),
       coaching: form.get("coaching"),
       durable: form.get("durable"),
-      image: image.name,
+      image: image.username,
     };
     if (!!data.image) await uploadData({
-      key: data.name,
+      key: data.username,
       data: image
     });
     await client.graphql({
@@ -202,13 +202,13 @@ const App = ({ signOut }) => {
           </SelectField>
 
             <Text as="span">{note.durable}</Text>
-{/*             {note.image && (
+            {note.image && (
               <Image
                 src={note.image}
-                alt={`visual aid for ${notes.name}`}
+                alt={`visual aid for ${notes.usernamename}`}
                 style={{ width: 400 }}
               />
-            )} */}
+            )}
             <Button variation="link" onClick={() => deleteNote(note)}>
               Delete note
             </Button>
