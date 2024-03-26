@@ -56,7 +56,7 @@ export default function NoteCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    auditor: [{ type: "Required" }],
+    auditor: [],
     period: [],
     username: [],
     afe: [],
@@ -156,7 +156,7 @@ export default function NoteCreateForm(props) {
     >
       <TextField
         label="Auditor"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={auditor}
         onChange={(e) => {

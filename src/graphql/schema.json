@@ -149,7 +149,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "processPath",
+          "name" : "process",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -344,7 +344,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "processPath",
+          "name" : "process",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -994,7 +994,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "processPath",
+          "name" : "process",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -1075,7 +1075,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "processPath",
+          "name" : "process",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1204,7 +1204,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "processPath",
+          "name" : "process",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -1385,7 +1385,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "processPath",
+          "name" : "process",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",

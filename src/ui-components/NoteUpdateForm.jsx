@@ -77,7 +77,7 @@ export default function NoteUpdateForm(props) {
   }, [idProp, noteModelProp]);
   React.useEffect(resetStateValues, [noteRecord]);
   const validations = {
-    auditor: [{ type: "Required" }],
+    auditor: [],
     period: [],
     username: [],
     afe: [],
@@ -113,7 +113,7 @@ export default function NoteUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          auditor,
+          auditor: auditor ?? null,
           period: period ?? null,
           username: username ?? null,
           afe: afe ?? null,
@@ -175,7 +175,7 @@ export default function NoteUpdateForm(props) {
     >
       <TextField
         label="Auditor"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={auditor}
         onChange={(e) => {
