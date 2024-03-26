@@ -30,19 +30,51 @@ const App = ({ signOut }) => {
   }, []);
 
   async function fetchNotes() {
-    const apiData = await client.graphql({ query: listNotes });
-    const notesFromAPI = apiData.data.listNotes.items;
-    await Promise.all(
-      notesFromAPI.map(async (note) => {
+    try {
+      // Attempt to fetch GraphQL data
+      const apiData = await client.graphql({ query: listNotes });
+      // Debugging log for inspecting the raw API data
+      console.log('API Data:', apiData);
+  
+      if (!apiData.data || !apiData.data.listNotes || !apiData.data.listNotes.items) {
+        // Log and handle cases where the GraphQL query does not return the expected structure
+        console.error('GraphQL query did not return the expected data structure:', apiData);
+        throw new Error('Invalid or no data returned from GraphQL query');
+      }
+  
+      const notesFromAPI = apiData.data.listNotes.items;
+  
+      // Process each note, especially handling the image URL fetch
+      await Promise.all(notesFromAPI.map(async (note) => {
         if (note.image) {
-          const url = await getUrl({ key: note.username });
-          note.image = url.url;
+          try {
+            const urlResponse = await getUrl({ key: note.username });
+            if (!urlResponse || !urlResponse.url) {
+              // Handle cases where URL is not fetched properly
+              console.error(`URL fetch unsuccessful for note: ${note.id}`);
+              throw new Error(`Failed to fetch URL for note ${note.id}`);
+            }
+            note.image = urlResponse.url;
+          } catch (error) {
+            // Log the error and optionally set a default image or handle the error specifically
+            console.error('Error fetching image URL:', error);
+            note.image = null; // You can choose to set this to a default image or leave it as null
+          }
         }
         return note;
-      })
-    );
-    setNotes(notesFromAPI);
+      }));
+  
+      // Update the state or handle the processed notes as needed
+      setNotes(notesFromAPI);
+    } catch (error) {
+      // Catch and handle any error that occurred during the function execution
+      console.error('Error during fetchNotes execution:', error);
+      // Here, you might want to update your UI accordingly to indicate the error
+    }
   }
+  
+  // Assumed existing implementations for client.graphql, getUrl, and setNotes
+  
 
   async function createNote(event) {
     event.preventDefault();
@@ -57,7 +89,7 @@ const App = ({ signOut }) => {
       error: form.get("error"),
       coaching: form.get("coaching"),
       durable: form.get("durable"),
-      image: image.username,
+    
     };
     if (!!data.image) await uploadData({
       key: data.username,
@@ -205,7 +237,7 @@ const App = ({ signOut }) => {
             {note.image && (
               <Image
                 src={note.image}
-                alt={`visual aid for ${notes.usernamename}`}
+                alt={`visual aid for ${notes.username}`}
                 style={{ width: 400 }}
               />
             )}

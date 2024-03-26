@@ -12,7 +12,7 @@ export const createNote = /* GraphQL */ `
       period
       username
       afe
-      processPath
+      process
       error
       coaching
       durable
@@ -33,7 +33,7 @@ export const updateNote = /* GraphQL */ `
       period
       username
       afe
-      processPath
+      process
       error
       coaching
       durable

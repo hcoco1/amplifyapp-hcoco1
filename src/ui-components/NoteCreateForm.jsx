@@ -27,31 +27,32 @@ export default function NoteCreateForm(props) {
     period: "",
     username: "",
     afe: "",
-    processPath: "",
+    process: "",
     error: "",
     coaching: "",
     durable: "",
+    image: "",
   };
   const [auditor, setAuditor] = React.useState(initialValues.auditor);
   const [period, setPeriod] = React.useState(initialValues.period);
   const [username, setUsername] = React.useState(initialValues.username);
   const [afe, setAfe] = React.useState(initialValues.afe);
-  const [processPath, setProcessPath] = React.useState(
-    initialValues.processPath
-  );
+  const [process, setProcess] = React.useState(initialValues.process);
   const [error, setError] = React.useState(initialValues.error);
   const [coaching, setCoaching] = React.useState(initialValues.coaching);
   const [durable, setDurable] = React.useState(initialValues.durable);
+  const [image, setImage] = React.useState(initialValues.image);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setAuditor(initialValues.auditor);
     setPeriod(initialValues.period);
     setUsername(initialValues.username);
     setAfe(initialValues.afe);
-    setProcessPath(initialValues.processPath);
+    setProcess(initialValues.process);
     setError(initialValues.error);
     setCoaching(initialValues.coaching);
     setDurable(initialValues.durable);
+    setImage(initialValues.image);
     setErrors({});
   };
   const validations = {
@@ -59,10 +60,11 @@ export default function NoteCreateForm(props) {
     period: [],
     username: [],
     afe: [],
-    processPath: [],
+    process: [],
     error: [],
     coaching: [],
     durable: [],
+    image: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -94,10 +96,11 @@ export default function NoteCreateForm(props) {
           period,
           username,
           afe,
-          processPath,
+          process,
           error,
           coaching,
           durable,
+          image,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -164,10 +167,11 @@ export default function NoteCreateForm(props) {
               period,
               username,
               afe,
-              processPath,
+              process,
               error,
               coaching,
               durable,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.auditor ?? value;
@@ -195,10 +199,11 @@ export default function NoteCreateForm(props) {
               period: value,
               username,
               afe,
-              processPath,
+              process,
               error,
               coaching,
               durable,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.period ?? value;
@@ -226,10 +231,11 @@ export default function NoteCreateForm(props) {
               period,
               username: value,
               afe,
-              processPath,
+              process,
               error,
               coaching,
               durable,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.username ?? value;
@@ -257,10 +263,11 @@ export default function NoteCreateForm(props) {
               period,
               username,
               afe: value,
-              processPath,
+              process,
               error,
               coaching,
               durable,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.afe ?? value;
@@ -276,10 +283,10 @@ export default function NoteCreateForm(props) {
         {...getOverrideProps(overrides, "afe")}
       ></TextField>
       <TextField
-        label="Process path"
+        label="Process"
         isRequired={false}
         isReadOnly={false}
-        value={processPath}
+        value={process}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -288,23 +295,24 @@ export default function NoteCreateForm(props) {
               period,
               username,
               afe,
-              processPath: value,
+              process: value,
               error,
               coaching,
               durable,
+              image,
             };
             const result = onChange(modelFields);
-            value = result?.processPath ?? value;
+            value = result?.process ?? value;
           }
-          if (errors.processPath?.hasError) {
-            runValidationTasks("processPath", value);
+          if (errors.process?.hasError) {
+            runValidationTasks("process", value);
           }
-          setProcessPath(value);
+          setProcess(value);
         }}
-        onBlur={() => runValidationTasks("processPath", processPath)}
-        errorMessage={errors.processPath?.errorMessage}
-        hasError={errors.processPath?.hasError}
-        {...getOverrideProps(overrides, "processPath")}
+        onBlur={() => runValidationTasks("process", process)}
+        errorMessage={errors.process?.errorMessage}
+        hasError={errors.process?.hasError}
+        {...getOverrideProps(overrides, "process")}
       ></TextField>
       <TextField
         label="Error"
@@ -319,10 +327,11 @@ export default function NoteCreateForm(props) {
               period,
               username,
               afe,
-              processPath,
+              process,
               error: value,
               coaching,
               durable,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.error ?? value;
@@ -350,10 +359,11 @@ export default function NoteCreateForm(props) {
               period,
               username,
               afe,
-              processPath,
+              process,
               error,
               coaching: value,
               durable,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.coaching ?? value;
@@ -381,10 +391,11 @@ export default function NoteCreateForm(props) {
               period,
               username,
               afe,
-              processPath,
+              process,
               error,
               coaching,
               durable: value,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.durable ?? value;
@@ -398,6 +409,38 @@ export default function NoteCreateForm(props) {
         errorMessage={errors.durable?.errorMessage}
         hasError={errors.durable?.hasError}
         {...getOverrideProps(overrides, "durable")}
+      ></TextField>
+      <TextField
+        label="Image"
+        isRequired={false}
+        isReadOnly={false}
+        value={image}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor,
+              period,
+              username,
+              afe,
+              process,
+              error,
+              coaching,
+              durable,
+              image: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.image ?? value;
+          }
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
+          }
+          setImage(value);
+        }}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
       ></TextField>
       <Flex
         justifyContent="space-between"

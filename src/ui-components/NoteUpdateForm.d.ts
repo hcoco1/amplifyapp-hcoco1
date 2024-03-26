@@ -26,20 +26,22 @@ export declare type NoteUpdateFormInputValues = {
     period?: string;
     username?: string;
     afe?: string;
-    processPath?: string;
+    process?: string;
     error?: string;
     coaching?: string;
     durable?: string;
+    image?: string;
 };
 export declare type NoteUpdateFormValidationValues = {
     auditor?: ValidationFunction<string>;
     period?: ValidationFunction<string>;
     username?: ValidationFunction<string>;
     afe?: ValidationFunction<string>;
-    processPath?: ValidationFunction<string>;
+    process?: ValidationFunction<string>;
     error?: ValidationFunction<string>;
     coaching?: ValidationFunction<string>;
     durable?: ValidationFunction<string>;
+    image?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NoteUpdateFormOverridesProps = {
@@ -48,10 +50,11 @@ export declare type NoteUpdateFormOverridesProps = {
     period?: PrimitiveOverrideProps<TextFieldProps>;
     username?: PrimitiveOverrideProps<TextFieldProps>;
     afe?: PrimitiveOverrideProps<TextFieldProps>;
-    processPath?: PrimitiveOverrideProps<TextFieldProps>;
+    process?: PrimitiveOverrideProps<TextFieldProps>;
     error?: PrimitiveOverrideProps<TextFieldProps>;
     coaching?: PrimitiveOverrideProps<TextFieldProps>;
     durable?: PrimitiveOverrideProps<TextFieldProps>;
+    image?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NoteUpdateFormProps = React.PropsWithChildren<{
     overrides?: NoteUpdateFormOverridesProps | undefined | null;
