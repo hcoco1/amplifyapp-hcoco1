@@ -5,10 +5,10 @@ import './PeriodSummary.css'; // Import the CSS file
 const PeriodSummary = ({ notes, className }) => {
   // Define the fields and values you want to count
   const fieldsToCount = [
-    { field: 'period', value: '1' },
-    { field: 'period', value: '2' },
-    { field: 'period', value: '3' },
-    { field: 'period', value: '4' },
+    { field: 'period', value: '(18:30-22:00)' },
+    { field: 'period', value: '(22:30-02:00)' },
+    { field: 'period', value: '(2:30-05:00)' },
+    { field: 'period', value: '(5:15-07:00)' },
     // Extend this array based on your data model and requirements
   ];
 

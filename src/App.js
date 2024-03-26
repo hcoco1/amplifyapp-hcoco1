@@ -158,10 +158,10 @@ const App = ({ signOut }) => {
             onChange={(e) => setValue(e.target.value)}
             options={[
               { label: 'Period', value: '' },
-              { label: '1 (6:30 -10:00 PM)', value: '1' },
-              { label: '2 (10:30 PM -02:00 AM)', value: '2' },
-              { label: '3 (2:30 AM -05:00 AM)', value: '3' },
-              { label: '4 (5:15 AM -07:00 AM)', value: '4' },
+              { label: '(18:30-22:00)', value: '(18:30-22:00)' },
+              { label: '(22:30-02:00)', value: '(22:30-02:00)' },
+              { label: '(2:30-05:00)', value: '(2:30-05:00)' },
+              { label: '(5:15-07:00)', value: '(5:15-07:00)' },
             ]}
           />
           <FormInput
@@ -200,15 +200,15 @@ const App = ({ signOut }) => {
             onChange={(e) => setValue(e.target.value)}
             options={[
               { label: 'Error', value: '' },
-              { label: 'Rebin Error Ind', value: 'Reb Err Ind' },
-              { label: 'Ind Error Ind', value: 'Ind Err Ind' },
-              { label: 'Induct Shortage', value: 'Ind Shor' },
+              { label: 'Rebin Error Ind', value: 'Rebin Error Ind' },
+              { label: 'Ind Error Ind', value: 'Ind Error Ind' },
+              { label: 'Induct Shortage', value: 'Induct Shortage' },
               { label: 'Wrong Box', value: 'Wrong Box' },
-              { label: 'Slam Kickout', value: 'Slam Kic' },
-              { label: 'Item Missing ', value: 'Item Miss' },
-              { label: 'Item Damaged', value: 'Item Dam' },
-              { label: 'Item Unscannable', value: 'Item Unsca' },
-              { label: 'Ship Exception', value: 'Ship Exce' },
+              { label: 'Slam Kickout', value: 'Slam Kickout' },
+              { label: 'Item Missing', value: 'Item Missing' },
+              { label: 'Item Damaged', value: 'Item Damaged' },
+              { label: 'Item Unscannable', value: 'Item Unscannable' },
+              { label: 'Ship Exception', value: 'Ship Exception' },
             ]}
           />
           <FormSelect
