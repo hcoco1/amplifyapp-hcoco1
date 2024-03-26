@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SelectField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createNote } from "../graphql/mutations";
@@ -154,10 +160,10 @@ export default function NoteCreateForm(props) {
       {...getOverrideProps(overrides, "NoteCreateForm")}
       {...rest}
     >
-      <TextField
+      <SelectField
         label="Auditor"
-        isRequired={false}
-        isReadOnly={false}
+        placeholder="Please select an option"
+        isDisabled={false}
         value={auditor}
         onChange={(e) => {
           let { value } = e.target;
@@ -185,11 +191,27 @@ export default function NoteCreateForm(props) {
         errorMessage={errors.auditor?.errorMessage}
         hasError={errors.auditor?.hasError}
         {...getOverrideProps(overrides, "auditor")}
-      ></TextField>
-      <TextField
+      >
+        <option
+          children="Ivan"
+          value="Ivan"
+          {...getOverrideProps(overrides, "auditoroption0")}
+        ></option>
+        <option
+          children="Yoanli"
+          value="Yoanli"
+          {...getOverrideProps(overrides, "auditoroption1")}
+        ></option>
+        <option
+          children="Guest"
+          value="Guest"
+          {...getOverrideProps(overrides, "auditoroption2")}
+        ></option>
+      </SelectField>
+      <SelectField
         label="Period"
-        isRequired={false}
-        isReadOnly={false}
+        placeholder="Please select an option"
+        isDisabled={false}
         value={period}
         onChange={(e) => {
           let { value } = e.target;
@@ -217,7 +239,28 @@ export default function NoteCreateForm(props) {
         errorMessage={errors.period?.errorMessage}
         hasError={errors.period?.hasError}
         {...getOverrideProps(overrides, "period")}
-      ></TextField>
+      >
+        <option
+          children="1 (6:30 -10:00 PM)"
+          value="1 (6:30 -10:00 PM)"
+          {...getOverrideProps(overrides, "periodoption0")}
+        ></option>
+        <option
+          children="2 (10:30 PM -02:00 AM)"
+          value="2 (10:30 PM -02:00 AM)"
+          {...getOverrideProps(overrides, "periodoption1")}
+        ></option>
+        <option
+          children="3 (2:30 AM -05:00 AM)"
+          value="3 (2:30 AM -05:00 AM)"
+          {...getOverrideProps(overrides, "periodoption2")}
+        ></option>
+        <option
+          children="4 (5:15 AM -07:00 AM)"
+          value="4 (5:15 AM -07:00 AM)"
+          {...getOverrideProps(overrides, "periodoption3")}
+        ></option>
+      </SelectField>
       <TextField
         label="Username"
         isRequired={false}

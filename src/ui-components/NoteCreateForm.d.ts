@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -46,8 +46,8 @@ export declare type NoteCreateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NoteCreateFormOverridesProps = {
     NoteCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    auditor?: PrimitiveOverrideProps<TextFieldProps>;
-    period?: PrimitiveOverrideProps<TextFieldProps>;
+    auditor?: PrimitiveOverrideProps<SelectFieldProps>;
+    period?: PrimitiveOverrideProps<SelectFieldProps>;
     username?: PrimitiveOverrideProps<TextFieldProps>;
     afe?: PrimitiveOverrideProps<TextFieldProps>;
     process?: PrimitiveOverrideProps<TextFieldProps>;

@@ -1,0 +1,31 @@
+/* NotesSummary.css */
+.audits-summary-container {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.audits-summary-title {
+  color: #495057;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.audits-summary-item {
+  background-color: #e9ecef;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.audits-summary-item p {
+  margin: 0;
+  color: #212529;
+  font-weight: bold;
+}

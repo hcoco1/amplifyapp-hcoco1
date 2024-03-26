@@ -1,38 +1,134 @@
+/* Layout for form row */
 .App {
-  text-align: center;
+  max-width: 1200px; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Centers the app in the middle of the page */
+  padding: 20px; /* Adds some padding around the app content */
+}
+body{
+  background-color: #61b3de;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form {
+  display: flex;
+background-color: #6791d9;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Style for form inputs, selects, textareas, and the submit button */
+.form-input, .form-select, .form-textarea, .form-submit-button, button[type="submit"] {
+  flex: 1 1 200px; /* Flex basis of 200px with ability to grow and shrink */
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Specific adjustments for <select> within .form-select for full width */
+.form-select select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Style for submit button, providing Facebook blue as the background color */
+.form-submit-button, button[type="submit"] {
+  background-color: #4267B2; /* Facebook blue */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form-submit-button:hover, button[type="submit"]:hover {
+  background-color: #365899; /* Darker blue on hover */
+}
+
+/* Container for notes, mimicking Facebook's card layout */
+.NotesContainer {
+  background-color: #819fcb; /* Facebook's background color */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+}
+
+/* Style for individual note cards within the container */
+.NoteCardContent {
+  background-color: #ffffff;
+  border: 1px solid #ccd0d5; /* Facebook's line color */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+/* Text style within note cards */
+.NoteText {
+  color: #1c1e21; /* Facebook's primary text color */
+  font-size: 16px;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+/* Style for delete button, using Facebook's button color */
+.DeleteButton {
+  background-color: #c75e4b;
+  border: none;
+  border-radius: 6px;
+  color: rgb(105, 218, 71);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+ 
+}
+
+.DeleteButton:hover {
+  background-color: #c86f54; /* Darker shade for hover effect */
+}
+
+/* Style for sign out button, distinct with a green color */
+.SignOutButton {
+  background-color: #42b72a; /* Green for sign out */
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-top: 1rem;
+
+}
+
+.SignOutButton:hover {
+  background-color: #36a420; /* Darker green on hover */
+}
+
+.NoteCardContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px; /* Adjust space between groups */
 }
 
-.App-link {
-  color: #61dafb;
+.note-group {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap as needed */
+  gap: 20px; /* Adjusts space between inline items */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.NoteText {
+  flex: 1; /* Adjust this value as needed to manage space distribution */
+  white-space: nowrap; /* Prevents text from wrapping */
 }
+
+.form-textarea-large {
+  width: 93%; /* Makes it take full width of its container */
+  height: 60px; /* Increase height for multi-line text input */
+}
+

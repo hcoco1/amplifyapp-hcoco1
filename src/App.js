@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import './App.css';
+
 import "@aws-amplify/ui-react/styles.css";
 import {
   Button,
   Flex,
   Heading,
   Text,
-  TextField,
+
   Image,
   View,
   withAuthenticator,
-  SelectField
+
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
 import {
@@ -19,11 +20,22 @@ import {
 } from "./graphql/mutations";
 import { generateClient } from 'aws-amplify/api';
 import { uploadData, getUrl, remove } from 'aws-amplify/storage';
+import FormSelect from "./components/form/FormSelect";
+import FormInput from "./components/form/FormInput";
+import FormTextarea from "./components/form/FormTextarea";
+import AFESummary from "./components/AFESummary";
+import ErrorSummary from './components/ErrorSummary';
+import PeriodSummary from './components/PeriodSummary';
+import ReportGenerator from "./components/ReportGenerator";
 
 const client = generateClient();
 
 const App = ({ signOut }) => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([
+    { id: 1, afe: 'AFE1', process: 'Pack' },
+    { id: 2, afe: 'AFE2', process: 'Induct' },
+    // Add more notes as per your application's functionality
+  ]);
 
   useEffect(() => {
     fetchNotes();
@@ -110,149 +122,183 @@ const App = ({ signOut }) => {
   }
   const [value, setValue] = useState('');
   return (
+
     <View className="App">
-      <Heading level={1}>My Notes App</Heading>
+      <Heading level={1}>Notes Taking App </Heading>
+      <Heading level={1}>Total Audits:{notes.length} </Heading>
+      <Button onClick={signOut} className="SignOutButton">Sign Out</Button>
+      <ReportGenerator notes={notes} />
+
+
+      
+<div>
+<PeriodSummary notes={notes} />
+      <AFESummary notes={notes} />
+      <ErrorSummary notes={notes} />
+</div>
+  
+
       <View as="form" margin="3rem 0" onSubmit={createNote}>
-        <Flex direction="row" justifyContent="center">
-  
-          <TextField
+
+        <div className="form">
+
+          <FormSelect
+            className="form-select"
             name="auditor"
-            placeholder="Auditor"
-            label="Auditor"
             onChange={(e) => setValue(e.target.value)}
-            required
+            options={[
+              { label: 'Auditor', value: '' },
+              { label: 'Ivan', value: 'ivan' },
+              { label: 'Yoanli', value: 'yoanli' },
+            ]}
           />
-  
-          <TextField
+          <FormSelect
+            className="form-select"
             name="period"
-            placeholder="Period"
-            label="Period"
             onChange={(e) => setValue(e.target.value)}
-            required
+            options={[
+              { label: 'Period', value: '' },
+              { label: '1 (6:30 -10:00 PM)', value: '1' },
+              { label: '2 (10:30 PM -02:00 AM)', value: '2' },
+              { label: '3 (2:30 AM -05:00 AM)', value: '3' },
+              { label: '4 (5:15 AM -07:00 AM)', value: '4' },
+            ]}
           />
-  
-          <TextField
+          <FormInput
+            className="form-input"
             name="username"
-            placeholder="Name"
-            label="Name"
-          
+            placeholder="Username"
             onChange={(e) => setValue(e.target.value)}
-            required
           />
-  
-          <TextField
+          <FormSelect
+            className="form-select"
             name="afe"
-            placeholder="AFE"
-            label="AFE"
             onChange={(e) => setValue(e.target.value)}
-            required
+            options={[
+              { label: 'AFE', value: '' },
+              { label: 'AFE1', value: 'AFE1' },
+              { label: 'AFE2', value: 'AFE2' },
+              { label: 'AFE3', value: 'AFE3' },
+            ]}
           />
-  
-          <TextField
+          <FormSelect
+            className="form-select"
             name="process"
-            placeholder="Process"
-            label="Process"
             onChange={(e) => setValue(e.target.value)}
-            required
+            options={[
+              { label: 'Process', value: '' },
+              { label: 'Pack', value: 'Pack' },
+              { label: 'Induct', value: 'Induct' },
+              { label: 'Rebin', value: 'Rebin' },
+              { label: 'Pack Other', value: 'Other' },
+              { label: 'Smartpac', value: 'Smartpac' },
+            ]}
           />
-  
-          <TextField
+          <FormSelect
+            className="form-select"
             name="error"
-            placeholder="Error"
-            label="Error"
             onChange={(e) => setValue(e.target.value)}
-            required
+            options={[
+              { label: 'Error', value: '' },
+              { label: 'Rebin Error Ind', value: 'Reb Err Ind' },
+              { label: 'Ind Error Ind', value: 'Ind Err Ind' },
+              { label: 'Induct Shortage', value: 'Ind Shor' },
+              { label: 'Wrong Box', value: 'Wrong Box' },
+              { label: 'Slam Kickout', value: 'Slam Kic' },
+              { label: 'Item Missing ', value: 'Item Miss' },
+              { label: 'Item Damaged', value: 'Item Dam' },
+              { label: 'Item Unscannable', value: 'Item Unsca' },
+              { label: 'Ship Exception', value: 'Ship Exce' },
+            ]}
           />
-  
-          <TextField
+          <FormSelect
+            className="form-select"
             name="coaching"
-            placeholder="Coaching"
-            label="Coaching"
             onChange={(e) => setValue(e.target.value)}
-            required
+            options={[
+              { label: 'Coaching', value: '' },
+              { label: 'Induct', value: "The auditor coached the associate, focusing on item shortages, scanning inaccuracies, placement errors, and the mishandling of damaged goods. The coaching emphasized enhancing observation, adhering to the 'one piece flow' principle for scanning accuracy, ensuring precise item placement in trays, and promptly reporting damaged items." },
+              { label: 'Rebin', value: "The associate was coached explicitly on the importance of carefully verifying chute IDs against the screen instructions before placement, emphasizing a methodical approach over speed to ensure accuracy." },
+              { label: 'Pack', value: "The team undertook a comprehensive audit of the Pack process to evaluate overall efficiency and accuracy, focusing on critical stages, including box assembly, item scanning, placement, and the final steps of sealing and labeling packages." },
+              { label: 'Slam Kickout', value: "The associate faced an audit for repeated kick-outs related to incorrect label placements, including hazmat and spoon labels. The coaching focused on accurately applying labels and adherence to system instructions to decrease kick-outs." },
+              { label: 'None', value: " " },
+            ]}
           />
+        </div>
+        <div className="form">
+
+
+
+
+                <FormTextarea
+          className="form-textarea form-textarea-large" // Assuming you have a separate component or logic to handle textareas
+          name="durable"
+          placeholder="Observations"
+          onChange={(e) => setValue(e.target.value)}
+        />
+        </div>
+
+
+
+
   
-          <TextField
-            name="durable"
-            placeholder="Personalized Coaching"
-            label="Personalized Coaching"
-            onChange={(e) => setValue(e.target.value)}
-            required
-          />
-  
-          <Button type="submit" variation="primary">
-            Create Note
-          </Button>
-        </Flex>
+        <div>
+
+          <button type="submit">Add Audit</button>
+        </div>
+
+
       </View>
-      <Heading level={2}>Current Notes</Heading>
-      <View margin="3rem 0">
-        {notes.map((note) => (
-          <Flex
-            key={note.id}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {/* Display Auditor */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.auditor}
-            </Text>
 
-            {/* Display Period */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.period}
-            </Text>
 
-            {/* Display Username */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.username}
-            </Text>
+      <Heading level={2}>Current Audits ({notes.length})</Heading>
+     
+      
+{notes && notes.length > 0 && <ReportGenerator  notes={notes} />}
 
-            {/* Display AFE */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.afe}
-            </Text>
 
-            {/* Display Process */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.process}
-            </Text>
 
-            {/* Display Error */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.error}
-            </Text>
+      <View className="NotesContainer">
 
-            {/* Display Coaching */}
-            <Text as="strong" fontWeight={700} padding="0 1rem">
-              {note.coaching}
-            </Text>
+        {notes.map((note, index) => (
+          <>
+                      <div className="NoteCardContent" key={note.id}>
+              <div className="note-group">
+              <Text className="NoteText">- <strong>N:</strong> {index + 1}</Text>
 
-            {/* Display Personalized Coaching/Durable */}
-            <Text padding="0 1rem">
-              {note.durable}
-            </Text>
+              </div>
 
-            {/* Optional: Display Image if exists */}
-            {note.image && (
-              <Image
-                src={note.image}
-                alt={`visual aid for ${note.username}`}
-                style={{ width: 400, margin: "0 1rem" }}
-              />
-            )}
+              <div className="note-group">
+                <Text className="NoteText">- <strong> 🥷Auditor:</strong> {note.auditor}</Text>
+                <Text className="NoteText">- <strong>Period:</strong> {note.period}</Text>
+                <Text className="NoteText">- <strong>Associate:</strong> {note.username}</Text>
+                <Text className="NoteText">- <strong>AFE:</strong> {note.afe}</Text>
+                <Text className="NoteText">- <strong>Process:</strong> {note.process}</Text>
+                <Text className="NoteText">- <strong>Error:</strong> {note.error}</Text>
+              </div>
 
-            {/* Delete Note Button */}
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
+              <div className="note-group">
+                <Text className="NoteText">- <strong>🖌Coaching:</strong> {note.coaching}</Text>
+                <Text className="NoteText">- <strong>💣Observations:</strong> {note.durable}</Text>
+              </div>
+            </div>
+
+
+            <Button
+              onClick={() => deleteNote(note)}
+              className="DeleteButton" // Apply or adjust CSS for styling the button
+              style={{ marginBottom: '1rem', color:"white", backgroundColor: "red" }} // Add spacing above the button
+            >
+              Delete Audit
             </Button>
-          </Flex>
+          </>
+         
+
+
+       
         ))}
       </View>
-
-
-      <Button onClick={signOut}>Sign Out</Button>
+      
     </View>
   );
 };
