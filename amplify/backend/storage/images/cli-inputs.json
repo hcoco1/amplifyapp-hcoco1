@@ -1,0 +1,14 @@
+{
+  "resourceName": "images",
+  "policyUUID": "17b228f4",
+  "bucketName": "hcoco1-bucket-amplify-dev-todo-12345",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
