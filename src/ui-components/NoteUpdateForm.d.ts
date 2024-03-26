@@ -22,21 +22,36 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type NoteUpdateFormInputValues = {
-    name?: string;
-    description?: string;
-    image?: string;
+    auditor?: string;
+    period?: string;
+    username?: string;
+    afe?: string;
+    processPath?: string;
+    error?: string;
+    coaching?: string;
+    durable?: string;
 };
 export declare type NoteUpdateFormValidationValues = {
-    name?: ValidationFunction<string>;
-    description?: ValidationFunction<string>;
-    image?: ValidationFunction<string>;
+    auditor?: ValidationFunction<string>;
+    period?: ValidationFunction<string>;
+    username?: ValidationFunction<string>;
+    afe?: ValidationFunction<string>;
+    processPath?: ValidationFunction<string>;
+    error?: ValidationFunction<string>;
+    coaching?: ValidationFunction<string>;
+    durable?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NoteUpdateFormOverridesProps = {
     NoteUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    name?: PrimitiveOverrideProps<TextFieldProps>;
-    description?: PrimitiveOverrideProps<TextFieldProps>;
-    image?: PrimitiveOverrideProps<TextFieldProps>;
+    auditor?: PrimitiveOverrideProps<TextFieldProps>;
+    period?: PrimitiveOverrideProps<TextFieldProps>;
+    username?: PrimitiveOverrideProps<TextFieldProps>;
+    afe?: PrimitiveOverrideProps<TextFieldProps>;
+    processPath?: PrimitiveOverrideProps<TextFieldProps>;
+    error?: PrimitiveOverrideProps<TextFieldProps>;
+    coaching?: PrimitiveOverrideProps<TextFieldProps>;
+    durable?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NoteUpdateFormProps = React.PropsWithChildren<{
     overrides?: NoteUpdateFormOverridesProps | undefined | null;

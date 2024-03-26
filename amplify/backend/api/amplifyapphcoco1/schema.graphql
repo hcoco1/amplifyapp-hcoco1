@@ -8,10 +8,11 @@ type Note @model @auth(rules: [ { allow: public } ] ){
   period:  String
   username:  String
   afe:  String
-  processPath:  String
+  process: String
   error:  String
   coaching:  String
   durable: String
+  image: String
 }
 
 

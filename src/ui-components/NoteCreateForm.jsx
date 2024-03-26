@@ -23,26 +23,46 @@ export default function NoteCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
-    description: "",
-    image: "",
+    auditor: "",
+    period: "",
+    username: "",
+    afe: "",
+    processPath: "",
+    error: "",
+    coaching: "",
+    durable: "",
   };
-  const [name, setName] = React.useState(initialValues.name);
-  const [description, setDescription] = React.useState(
-    initialValues.description
+  const [auditor, setAuditor] = React.useState(initialValues.auditor);
+  const [period, setPeriod] = React.useState(initialValues.period);
+  const [username, setUsername] = React.useState(initialValues.username);
+  const [afe, setAfe] = React.useState(initialValues.afe);
+  const [processPath, setProcessPath] = React.useState(
+    initialValues.processPath
   );
-  const [image, setImage] = React.useState(initialValues.image);
+  const [error, setError] = React.useState(initialValues.error);
+  const [coaching, setCoaching] = React.useState(initialValues.coaching);
+  const [durable, setDurable] = React.useState(initialValues.durable);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.name);
-    setDescription(initialValues.description);
-    setImage(initialValues.image);
+    setAuditor(initialValues.auditor);
+    setPeriod(initialValues.period);
+    setUsername(initialValues.username);
+    setAfe(initialValues.afe);
+    setProcessPath(initialValues.processPath);
+    setError(initialValues.error);
+    setCoaching(initialValues.coaching);
+    setDurable(initialValues.durable);
     setErrors({});
   };
   const validations = {
-    name: [{ type: "Required" }],
-    description: [],
-    image: [],
+    auditor: [{ type: "Required" }],
+    period: [],
+    username: [],
+    afe: [],
+    processPath: [],
+    error: [],
+    coaching: [],
+    durable: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -70,9 +90,14 @@ export default function NoteCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          name,
-          description,
-          image,
+          auditor,
+          period,
+          username,
+          afe,
+          processPath,
+          error,
+          coaching,
+          durable,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -127,82 +152,252 @@ export default function NoteCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Name"
+        label="Auditor"
         isRequired={true}
         isReadOnly={false}
-        value={name}
+        value={auditor}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name: value,
-              description,
-              image,
+              auditor: value,
+              period,
+              username,
+              afe,
+              processPath,
+              error,
+              coaching,
+              durable,
             };
             const result = onChange(modelFields);
-            value = result?.name ?? value;
+            value = result?.auditor ?? value;
           }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+          if (errors.auditor?.hasError) {
+            runValidationTasks("auditor", value);
           }
-          setName(value);
+          setAuditor(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        onBlur={() => runValidationTasks("auditor", auditor)}
+        errorMessage={errors.auditor?.errorMessage}
+        hasError={errors.auditor?.hasError}
+        {...getOverrideProps(overrides, "auditor")}
       ></TextField>
       <TextField
-        label="Description"
+        label="Period"
         isRequired={false}
         isReadOnly={false}
-        value={description}
+        value={period}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name,
-              description: value,
-              image,
+              auditor,
+              period: value,
+              username,
+              afe,
+              processPath,
+              error,
+              coaching,
+              durable,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.period ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.period?.hasError) {
+            runValidationTasks("period", value);
           }
-          setDescription(value);
+          setPeriod(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
+        onBlur={() => runValidationTasks("period", period)}
+        errorMessage={errors.period?.errorMessage}
+        hasError={errors.period?.hasError}
+        {...getOverrideProps(overrides, "period")}
       ></TextField>
       <TextField
-        label="Image"
+        label="Username"
         isRequired={false}
         isReadOnly={false}
-        value={image}
+        value={username}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name,
-              description,
-              image: value,
+              auditor,
+              period,
+              username: value,
+              afe,
+              processPath,
+              error,
+              coaching,
+              durable,
             };
             const result = onChange(modelFields);
-            value = result?.image ?? value;
+            value = result?.username ?? value;
           }
-          if (errors.image?.hasError) {
-            runValidationTasks("image", value);
+          if (errors.username?.hasError) {
+            runValidationTasks("username", value);
           }
-          setImage(value);
+          setUsername(value);
         }}
-        onBlur={() => runValidationTasks("image", image)}
-        errorMessage={errors.image?.errorMessage}
-        hasError={errors.image?.hasError}
-        {...getOverrideProps(overrides, "image")}
+        onBlur={() => runValidationTasks("username", username)}
+        errorMessage={errors.username?.errorMessage}
+        hasError={errors.username?.hasError}
+        {...getOverrideProps(overrides, "username")}
+      ></TextField>
+      <TextField
+        label="Afe"
+        isRequired={false}
+        isReadOnly={false}
+        value={afe}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor,
+              period,
+              username,
+              afe: value,
+              processPath,
+              error,
+              coaching,
+              durable,
+            };
+            const result = onChange(modelFields);
+            value = result?.afe ?? value;
+          }
+          if (errors.afe?.hasError) {
+            runValidationTasks("afe", value);
+          }
+          setAfe(value);
+        }}
+        onBlur={() => runValidationTasks("afe", afe)}
+        errorMessage={errors.afe?.errorMessage}
+        hasError={errors.afe?.hasError}
+        {...getOverrideProps(overrides, "afe")}
+      ></TextField>
+      <TextField
+        label="Process path"
+        isRequired={false}
+        isReadOnly={false}
+        value={processPath}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor,
+              period,
+              username,
+              afe,
+              processPath: value,
+              error,
+              coaching,
+              durable,
+            };
+            const result = onChange(modelFields);
+            value = result?.processPath ?? value;
+          }
+          if (errors.processPath?.hasError) {
+            runValidationTasks("processPath", value);
+          }
+          setProcessPath(value);
+        }}
+        onBlur={() => runValidationTasks("processPath", processPath)}
+        errorMessage={errors.processPath?.errorMessage}
+        hasError={errors.processPath?.hasError}
+        {...getOverrideProps(overrides, "processPath")}
+      ></TextField>
+      <TextField
+        label="Error"
+        isRequired={false}
+        isReadOnly={false}
+        value={error}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor,
+              period,
+              username,
+              afe,
+              processPath,
+              error: value,
+              coaching,
+              durable,
+            };
+            const result = onChange(modelFields);
+            value = result?.error ?? value;
+          }
+          if (errors.error?.hasError) {
+            runValidationTasks("error", value);
+          }
+          setError(value);
+        }}
+        onBlur={() => runValidationTasks("error", error)}
+        errorMessage={errors.error?.errorMessage}
+        hasError={errors.error?.hasError}
+        {...getOverrideProps(overrides, "error")}
+      ></TextField>
+      <TextField
+        label="Coaching"
+        isRequired={false}
+        isReadOnly={false}
+        value={coaching}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor,
+              period,
+              username,
+              afe,
+              processPath,
+              error,
+              coaching: value,
+              durable,
+            };
+            const result = onChange(modelFields);
+            value = result?.coaching ?? value;
+          }
+          if (errors.coaching?.hasError) {
+            runValidationTasks("coaching", value);
+          }
+          setCoaching(value);
+        }}
+        onBlur={() => runValidationTasks("coaching", coaching)}
+        errorMessage={errors.coaching?.errorMessage}
+        hasError={errors.coaching?.hasError}
+        {...getOverrideProps(overrides, "coaching")}
+      ></TextField>
+      <TextField
+        label="Durable"
+        isRequired={false}
+        isReadOnly={false}
+        value={durable}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor,
+              period,
+              username,
+              afe,
+              processPath,
+              error,
+              coaching,
+              durable: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.durable ?? value;
+          }
+          if (errors.durable?.hasError) {
+            runValidationTasks("durable", value);
+          }
+          setDurable(value);
+        }}
+        onBlur={() => runValidationTasks("durable", durable)}
+        errorMessage={errors.durable?.errorMessage}
+        hasError={errors.durable?.hasError}
+        {...getOverrideProps(overrides, "durable")}
       ></TextField>
       <Flex
         justifyContent="space-between"

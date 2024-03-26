@@ -10,6 +10,7 @@ import {
   Image,
   View,
   withAuthenticator,
+  SelectField
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
 import {
@@ -34,8 +35,8 @@ const App = ({ signOut }) => {
     await Promise.all(
       notesFromAPI.map(async (note) => {
         if (note.image) {
-          const url = await getUrl({ key: note.name });
-          note.image = url.url;  
+          const url = await getUrl({ key: note.username });
+          note.image = url.url;
         }
         return note;
       })
@@ -48,8 +49,14 @@ const App = ({ signOut }) => {
     const form = new FormData(event.target);
     const image = form.get("image");
     const data = {
-      name: form.get("name"),
-      description: form.get("description"),
+      auditor: form.get("auditor"),
+      period: form.get("period"),
+      username: form.get("username"),
+      afe: form.get("afe"),
+      process: form.get("process"),
+      error: form.get("error"),
+      coaching: form.get("coaching"),
+      durable: form.get("durable"),
       image: image.name,
     };
     if (!!data.image) await uploadData({
@@ -64,10 +71,10 @@ const App = ({ signOut }) => {
     event.target.reset();
   }
 
-  async function deleteNote({ id, name }) {
+  async function deleteNote({ id, username }) {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
-    await remove({ key: name });
+    await remove({ key: username });
     await client.graphql({
       query: deleteNoteMutation,
       variables: { input: { id } },
@@ -79,28 +86,78 @@ const App = ({ signOut }) => {
       <Heading level={1}>My Notes App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
+
+          <SelectField label="auditor">
+            <option value="ivan">Ivan</option>
+            <option value="yoanly">Yoanli</option>
+            <option value="guest">Guest</option>
+          </SelectField>
+
+          <SelectField label="period">
+            <option value="1">1 (6:30 -10:00 PM)</option>
+            <option value="2">2 (10:30 PM -02:00 AM)</option>
+            <option value="3">3 (2:30 AM -05:00 AM)</option>
+            <option value="4">4 (5:15 AM -07:00 AM)</option>
+          </SelectField>
+
+
           <TextField
-            name="name"
-            placeholder="Note Name"
-            label="Note Name"
+            name="username"
+            placeholder="Name"
+            label="Name"
             labelHidden
             variation="quiet"
             required
           />
+          <SelectField label="afe">
+            <option value="afe1">AFE1</option>
+            <option value="afe2">AFE2</option>
+            <option value="afe3">AFE3</option>
+          </SelectField>
+
+          <SelectField label="process">
+            <option value="pack">Pack</option>
+            <option value="rebin">Rebin</option>
+            <option value="induct">Induct</option>
+            <option value="smartpack">Smartpac</option>
+            <option value="pack-singles">Pack Singles</option>
+          </SelectField>
+
+          <SelectField label="error">
+            <option value="rebinerror">Rebin Error Ind</option>
+            <option value="inducterror">Induct Error Ind</option>
+            <option value="inductshortage">Induct Shortage</option>
+            <option value="wrongbox">Wrong Box</option>
+            <option value="slam">Slam Kickout</option>
+            <option value="missing">Item Missing</option>
+            <option value="damaged">Item Damaged</option>
+            <option value="unscannable">Item Unscannable</option>
+            <option value="shipexception">Shipment Exception</option>
+          </SelectField>
+
+          <SelectField label="coaching">
+            <option value="The auditor coached the associate, focusing on item shortages, scanning inaccuracies, placement errors, and the mishandling of damaged goods. The coaching emphasized enhancing observation, adhering to the 'one piece flow' principle for scanning accuracy, ensuring precise item placement in trays, and promptly reporting damaged items.">Induct</option>
+            <option value="The associate was coached explicitly on the importance of carefully verifying chute IDs against the screen instructions before placement, emphasizing a methodical approach over speed to ensure accuracy.">Rebin</option>
+            <option value="The team undertook a comprehensive audit of the Pack process to evaluate overall efficiency and accuracy, focusing on critical stages, including box assembly, item scanning, placement, and the final steps of sealing and labeling packages.">Pack</option>
+            <option value="The associate faced an audit for repeated kick-outs related to incorrect label placements, including hazmat and spoon labels. The coaching focused on accurately applying labels and adherence to system instructions to decrease kick-outs.">Slam Kickout</option>
+            <option value="none"></option>
+          </SelectField>
+
+
           <TextField
-            name="description"
-            placeholder="Note Description"
-            label="Note Description"
+            name="durable"
+            placeholder="Personalized Coaching"
+            label="Personalized Coaching"
             labelHidden
             variation="quiet"
             required
           />
-          <View
+{/*           <View
             name="image"
             as="input"
             type="file"
             style={{ alignSelf: "end" }}
-          />
+          /> */}
           <Button type="submit" variation="primary">
             Create Note
           </Button>
@@ -110,22 +167,48 @@ const App = ({ signOut }) => {
       <View margin="3rem 0">
         {notes.map((note) => (
           <Flex
-            key={note.id || note.name}
+            key={note.id || note.username}
             direction="row"
             justifyContent="center"
             alignItems="center"
           >
+          <SelectField as="strong" fontWeight={700}>
+          {note.auditor}
+          </SelectField>
+
+          <SelectField as="strong" fontWeight={700}>
+          {note.period}
+          </SelectField>
+
             <Text as="strong" fontWeight={700}>
-              {note.name}
+              {note.username}
             </Text>
-            <Text as="span">{note.description}</Text>
-            {note.image && (
+
+            <SelectField as="strong" fontWeight={700}>
+          {note.afe}
+          </SelectField>
+
+          <SelectField as="strong" fontWeight={700}>
+          {note.process}
+
+          </SelectField>
+
+          <SelectField as="strong" fontWeight={700}>
+          {note.error}
+          </SelectField>
+
+          <SelectField as="strong" fontWeight={700}>
+          {note.coaching}
+          </SelectField>
+
+            <Text as="span">{note.durable}</Text>
+{/*             {note.image && (
               <Image
                 src={note.image}
                 alt={`visual aid for ${notes.name}`}
                 style={{ width: 400 }}
               />
-            )}
+            )} */}
             <Button variation="link" onClick={() => deleteNote(note)}>
               Delete note
             </Button>
