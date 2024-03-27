@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
 import './ErrorSummary.css'; // Import the CSS file
 
 const ErrorSummary = ({ notes, className }) => {
@@ -17,51 +17,57 @@ const ErrorSummary = ({ notes, className }) => {
     // Extend this array based on your data model and requirements
   ];
 
-    // Function to count the occurrences of a value in a given field
-    const countNotes = (field, value) => {
-      return notes.filter(note => note[field] === value).length;
-    };
-  
-    // Data for the bar chart
-    const data = fieldsToCount.map(item => ({
-      name: item.value,
-      count: countNotes(item.field, item.value)
-    }));
-
-    const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#00bfff', '#ff4040', '#008080', '#800080', '#008000'];
-  
-    return (
-      <div className={`audits-summary-container ${className}`}>
-        <div>
-          <h2 className="audits-summary-title">Error Totals</h2>
-        </div>
-        
-        <div className="audits-summary-chart">
-          <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-           
-            <Bar dataKey="count" fill={colors[3]} />
-          </BarChart>
-        </div>
-  
-        {/* Display counts */}
-        <div className="audits-summary-counts">
-          {fieldsToCount.map(({ field, value }) => (
-            <div key={`${field}-${value}`} className="audits-summary-item">
-              <p>{`${value}: ${countNotes(field, value)}`}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  // Function to count the occurrences of a value in a given field
+  const countNotes = (field, value) => {
+    return notes.filter(note => note[field] === value).length;
   };
-  
-  export default ErrorSummary;
+
+  // Data for the pie chart
+  const data = fieldsToCount.map(item => ({
+    name: item.value,
+    value: countNotes(item.field, item.value) // 'value' is used by Pie chart
+  }));
+
+  const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#00bfff', '#ff4040', '#008080', '#800080', '#008000'];
+
+  return (
+    <div className={`audits-summary-container ${className}`}>
+      <div>
+        <h2 className="audits-summary-title">Error Totals</h2>
+      </div>
+      
+      <div className="audits-summary-chart">
+        <PieChart width={500} height={400}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            outerRadius={150}
+            fill="#8884d8"
+            dataKey="value"
+            nameKey="name"
+            /* label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} */
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </div>
+
+      {/* Display counts */}
+      <div className="audits-summary-counts">
+        {fieldsToCount.map(({ field, value }) => (
+          <div key={`${field}-${value}`} className="audits-summary-item">
+            <p>{`${value}: ${countNotes(field, value)}`}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ErrorSummary;

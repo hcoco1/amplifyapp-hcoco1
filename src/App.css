@@ -132,3 +132,9 @@ background-color: #6791d9;
   height: 60px; /* Increase height for multi-line text input */
 }
 
+/* Assuming you have a parent container with this class */
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Aligns children to the right */
+}
