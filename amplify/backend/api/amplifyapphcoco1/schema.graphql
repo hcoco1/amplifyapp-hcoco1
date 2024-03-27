@@ -1,5 +1,6 @@
-type Note @model @auth(rules: [{allow: owner}]) {
+type Note @model @auth(rules: [{allow: owner}, {allow: private}]) {
   id: ID!
+  auditor: String
   period: String
   username: String
   afe: String
@@ -7,5 +8,6 @@ type Note @model @auth(rules: [{allow: owner}]) {
   error: String
   coaching: String
   durable: String
+  image: String
 }
  
