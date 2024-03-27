@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import {
+ 
   Button,
   Heading,
   Text,
@@ -16,11 +17,13 @@ import {
 } from "./graphql/mutations";
 import { generateClient } from 'aws-amplify/api';
 import { getUrl, remove } from 'aws-amplify/storage';
+
+import ReportGenerator from "./components/ReportGenerator";
+import AuditForm from "./components/AuditForm";
 import AFESummary from "./components/AFESummary";
 import ErrorSummary from './components/ErrorSummary';
 import PeriodSummary from './components/PeriodSummary';
-import ReportGenerator from "./components/ReportGenerator";
-import AuditForm from "./components/AuditForm";
+
 
 
 
@@ -87,7 +90,7 @@ const App = ({ signOut }) => {
     const form = new FormData(event.target);
     /* const image = form.get("image"); */
     const data = {
-       auditor: form.get("auditor"), 
+      auditor: form.get("auditor"), 
       period: form.get("period"),
       username: form.get("username"),
       afe: form.get("afe"),
@@ -135,13 +138,13 @@ const App = ({ signOut }) => {
        
         <button onClick={signOut} className="signOutButton"><strong>Sign Out</strong></button>
       </View>
+
       <Heading level={1} style={{ textAlign: 'center' }}>Total Audits:{notes.length} </Heading>
-      
-      <div>
-        <PeriodSummary notes={notes} />
-        <AFESummary notes={notes} />
-        <ErrorSummary notes={notes} />
-      </div>
+      <PeriodSummary notes={notes} />
+      <AFESummary notes={notes} />
+      <ErrorSummary notes={notes} />
+    
+
       <AuditForm onSubmit={createTodo} />
       <View>
         <Heading level={2} style={{ textAlign: 'center' }}><strong>Total Audits: {notes.length}</strong></Heading>
@@ -181,8 +184,8 @@ const App = ({ signOut }) => {
                 <Text className="NoteText">- <strong>Error:</strong> {note.error}</Text>
               </div>
               <div className="note-group">
-                <Text className="NoteText">- <strong>🖌Coaching:</strong> {note.coaching}</Text>
-                <Text className="NoteText">- <strong>💣Observations:</strong> {note.durable}</Text>
+                <Text className="NoteText">- <strong>Coaching:</strong> {note.coaching}</Text>
+                <Text className="NoteText">- <strong>Observations:</strong> {note.durable}</Text>
               </div>
             </div>
             <Button

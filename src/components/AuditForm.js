@@ -13,6 +13,7 @@ const AuditForm = ({ onSubmit }) => {
         <div className="form">
 
         <FormSelect
+        className="form-select"
           name="auditor"
           onChange={(e) => setValue(e.target.value)}
           options={[
@@ -100,8 +101,6 @@ const AuditForm = ({ onSubmit }) => {
               { label: 'None', value: " " },
             ]}
           />
-        </div>
-        <div className="form">
 
           <FormTextarea
             className="form-textarea form-textarea-large" // Assuming you have a separate component or logic to handle textareas
@@ -109,12 +108,15 @@ const AuditForm = ({ onSubmit }) => {
             placeholder="Observations"
             onChange={(e) => setValue(e.target.value)}
           />
+
+
         </div>
 
-        <div>
+
+      
 
           <button type="submit">Add Audit</button>
-        </div>
+       
 
 
       </form>
