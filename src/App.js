@@ -4,11 +4,8 @@ import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import {
   Button,
-  Flex,
   Heading,
   Text,
-
-  Image,
   View,
   withAuthenticator,
 
@@ -19,15 +16,12 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 import { generateClient } from 'aws-amplify/api';
-import { uploadData, getUrl, remove } from 'aws-amplify/storage';
-import FormSelect from "./components/form/FormSelect";
-import FormInput from "./components/form/FormInput";
-import FormTextarea from "./components/form/FormTextarea";
+import { getUrl, remove } from 'aws-amplify/storage';
 import AFESummary from "./components/AFESummary";
 import ErrorSummary from './components/ErrorSummary';
 import PeriodSummary from './components/PeriodSummary';
 import ReportGenerator from "./components/ReportGenerator";
-
+import AuditForm from "./components/AuditForm";
 
 
 
@@ -37,11 +31,7 @@ const client = generateClient();
 const App = ({ signOut }) => {
   const [user, setUser] = useState(null);
   const [filter, setFilter] = useState('');
-  const [notes, setNotes] = useState([
-    { id: 1, afe: 'AFE1', process: 'Pack' },
-    { id: 2, afe: 'AFE2', process: 'Induct' },
-    // Add more notes as per your application's functionality
-  ]);
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     fetchNotes();
@@ -159,123 +149,7 @@ const App = ({ signOut }) => {
       </div>
 
 
-      <View as="form" margin="3rem 0" onSubmit={createNote}>
-
-        <div className="form">
-
-          {/*           <FormSelect
-            className="form-select"
-            name="auditor"
-            onChange={(e) => setValue(e.target.value)}
-            options={[
-              { label: 'Auditor', value: '' },
-              { label: 'Ivan', value: 'Ivan' },
-              { label: 'Yoanli', value: 'Yoanli' },
-            ]}
-          /> */}
-          <FormSelect
-            className="form-select"
-            name="period"
-            onChange={(e) => setValue(e.target.value)}
-            options={[
-              { label: 'Period', value: '' },
-              { label: '(18:30-22:00)', value: '(18:30-22:00)' },
-              { label: '(22:30-02:00)', value: '(22:30-02:00)' },
-              { label: '(2:30-05:00)', value: '(2:30-05:00)' },
-              { label: '(5:15-07:00)', value: '(5:15-07:00)' },
-            ]}
-          />
-          <FormInput
-            className="form-input"
-            name="username"
-            placeholder="Username"
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <FormSelect
-            className="form-select"
-            name="afe"
-            onChange={(e) => setValue(e.target.value)}
-            options={[
-              { label: 'AFE', value: '' },
-              { label: 'AFE1', value: 'AFE1' },
-              { label: 'AFE2', value: 'AFE2' },
-              { label: 'AFE3', value: 'AFE3' },
-            ]}
-          />
-          <FormSelect
-            className="form-select"
-            name="process"
-            onChange={(e) => setValue(e.target.value)}
-            options={[
-              { label: 'Process', value: '' },
-              { label: 'Pack', value: 'Pack' },
-              { label: 'Induct', value: 'Induct' },
-              { label: 'Rebin', value: 'Rebin' },
-              { label: 'Pack Other', value: 'Other' },
-              { label: 'Smartpac', value: 'Smartpac' },
-            ]}
-          />
-          <FormSelect
-            className="form-select"
-            name="error"
-            onChange={(e) => setValue(e.target.value)}
-            options={[
-              { label: 'Error', value: '' },
-              { label: 'Rebin Error Ind', value: 'Rebin Error Ind' },
-              { label: 'Ind Error Ind', value: 'Ind Error Ind' },
-              { label: 'Induct Shortage', value: 'Induct Shortage' },
-              { label: 'Wrong Box', value: 'Wrong Box' },
-              { label: 'Slam Kickout', value: 'Slam Kickout' },
-              { label: 'Item Missing', value: 'Item Missing' },
-              { label: 'Item Damaged', value: 'Item Damaged' },
-              { label: 'Item Unscannable', value: 'Item Unscannable' },
-              { label: 'Ship Exception', value: 'Ship Exception' },
-            ]}
-          />
-
-          <FormSelect
-            className="form-select"
-            name="coaching"
-            onChange={(e) => setValue(e.target.value)}
-            options={[
-              { label: 'Coaching', value: '' },
-              { label: 'Induct', value: "The auditor coached the associate, focusing on item shortages, scanning inaccuracies, placement errors, and the mishandling of damaged goods. The coaching emphasized enhancing observation, adhering to the 'one piece flow' principle for scanning accuracy, ensuring precise item placement in trays, and promptly reporting damaged items." },
-              { label: 'Induct Trays issues', value: "The auditor coached the associate, focusing on the crucial steps of accurately scanning items and ensuring their correct placement in trays. Accurate placement is critical for maintaining operational efficiency and preventing errors and missing items." },
-              { label: 'Rebin', value: "The associate was coached explicitly on the importance of carefully verifying chute IDs against the screen instructions before placement, emphasizing a methodical approach over speed to ensure accuracy." },
-              { label: 'Pack', value: "The team undertook a comprehensive audit of the Pack process to evaluate overall efficiency and accuracy, focusing on critical stages, including box assembly, item scanning, placement, and the final steps of sealing and labeling packages." },
-              { label: 'Pack Missing', value: "The team initiated an audit focusing on the procedures for locating missing items (COIN Method). The associate was coached in checking multiple potential locations for missing items, including the floor, alternative chutes, and within the PS (Problem Solve) tote." },
-              { label: 'Pack Damaged', value: "The associate was coached regarding the handling and reporting procedures for damaged items to assess the integrity and effectiveness of standard work protocols." },
-              { label: 'Pack Unscannable', value: "The associate was coached to improve the procedures for managing unscannable items, with a particular emphasis on implementing a 'six-side check' by associates on each item and a thorough inspection to verify the presence of a scannable barcode, thereby identifying potential scanning impediments." },
-              { label: 'Pack Shipment Exceptions', value: "The associate was coached on the importance of promptly addressing shipment exceptions, like slip printer malfunctions, that can delay the packing process" },
-              { label: 'Slam Kickout', value: "The associate faced an audit for repeated kick-outs related to incorrect label placements, including hazmat and spoon labels. The coaching focused on accurately applying labels and adherence to system instructions to decrease kick-outs." },
-              { label: 'None', value: " " },
-            ]}
-          />
-        </div>
-        <div className="form">
-
-
-
-
-          <FormTextarea
-            className="form-textarea form-textarea-large" // Assuming you have a separate component or logic to handle textareas
-            name="durable"
-            placeholder="Observations"
-            onChange={(e) => setValue(e.target.value)}
-          />
-        </div>
-
-
-
-
-
-        <div>
-
-          <button type="submit">Add Audit</button>
-        </div>
-
-
-      </View>
+      <AuditForm onSubmit={createNote} />
 
 
       <View>
@@ -307,43 +181,43 @@ const App = ({ signOut }) => {
       <View className="NotesContainer">
 
 
-      {notes.filter((note) => {
-  return filter === '' || note.username?.toLowerCase().includes(filter.toLowerCase());
-}).map((note, index) => (
-  <React.Fragment key={note.id}> {/* Move the key prop here */}
-    <div className="NoteCardContent">
-      <div className="note-group">
-        <Text className="NoteText">
-          - <strong>N:</strong> <strong><span style={{ color: 'red' }}>{index + 1}</span></strong>
-        </Text>
+        {notes.filter((note) => {
+          return filter === '' || note.username?.toLowerCase().includes(filter.toLowerCase());
+        }).map((note, index) => (
+          <React.Fragment key={note.id}> {/* Move the key prop here */}
+            <div className="NoteCardContent">
+              <div className="note-group">
+                <Text className="NoteText">
+                  - <strong>N:</strong> <strong><span style={{ color: 'red' }}>{index + 1}</span></strong>
+                </Text>
 
-        <Text className="NoteText">- <strong>Created At:</strong> {formatTimestampToUTC(note.createdAt)}</Text>
+                <Text className="NoteText">- <strong>Created At:</strong> {formatTimestampToUTC(note.createdAt)}</Text>
 
-      </div>
+              </div>
 
-      <div className="note-group">
-        <Text className="NoteText">- <strong>Period:</strong> {note.period}</Text>
-        <Text className="NoteText">- <strong>Associate:</strong> {note.username}</Text>
-        <Text className="NoteText">- <strong>AFE:</strong> {note.afe}</Text>
-        <Text className="NoteText">- <strong>Process:</strong> {note.process}</Text>
-        <Text className="NoteText">- <strong>Error:</strong> {note.error}</Text>
-      </div>
+              <div className="note-group">
+                <Text className="NoteText">- <strong>Period:</strong> {note.period}</Text>
+                <Text className="NoteText">- <strong>Associate:</strong> {note.username}</Text>
+                <Text className="NoteText">- <strong>AFE:</strong> {note.afe}</Text>
+                <Text className="NoteText">- <strong>Process:</strong> {note.process}</Text>
+                <Text className="NoteText">- <strong>Error:</strong> {note.error}</Text>
+              </div>
 
-      <div className="note-group">
-        <Text className="NoteText">- <strong>🖌Coaching:</strong> {note.coaching}</Text>
-        <Text className="NoteText">- <strong>💣Observations:</strong> {note.durable}</Text>
-      </div>
-    </div>
+              <div className="note-group">
+                <Text className="NoteText">- <strong>🖌Coaching:</strong> {note.coaching}</Text>
+                <Text className="NoteText">- <strong>💣Observations:</strong> {note.durable}</Text>
+              </div>
+            </div>
 
-    <Button
-      onClick={() => deleteNote(note)}
-      className="DeleteButton"
-      style={{ marginBottom: '1rem', color: "white", backgroundColor: "red" }}
-    >
-      Delete Audit N:{index + 1}
-    </Button>
-  </React.Fragment>
-))}
+            <Button
+              onClick={() => deleteNote(note)}
+              className="DeleteButton"
+              style={{ marginBottom: '1rem', color: "white", backgroundColor: "red" }}
+            >
+              Delete Audit N:{index + 1}
+            </Button>
+          </React.Fragment>
+        ))}
 
       </View>
 
