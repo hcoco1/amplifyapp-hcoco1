@@ -10,10 +10,10 @@ import {
   withAuthenticator,
 
 } from "@aws-amplify/ui-react";
-import { listNotes } from "./graphql/queries";
+import { listTodos } from "./graphql/queries";
 import {
-  createNote as createNoteMutation,
-  deleteNote as deleteNoteMutation,
+  createTodo as createTodoMutation,
+  deleteTodo as deleteTodoMutation,
 } from "./graphql/mutations";
 import { generateClient } from 'aws-amplify/api';
 import { getUrl, remove } from 'aws-amplify/storage';
@@ -39,17 +39,17 @@ const App = ({ signOut }) => {
   async function fetchNotes() {
     try {
       // Attempt to fetch GraphQL data
-      const apiData = await client.graphql({ query: listNotes });
+      const apiData = await client.graphql({ query: listTodos });
       // Debugging log for inspecting the raw API data
       console.log('API Data:', apiData);
 
-      if (!apiData.data || !apiData.data.listNotes || !apiData.data.listNotes.items) {
+      if (!apiData.data || !apiData.data.listTodos || !apiData.data.listTodos.items) {
         // Log and handle cases where the GraphQL query does not return the expected structure
         console.error('GraphQL query did not return the expected data structure:', apiData);
         throw new Error('Invalid or no data returned from GraphQL query');
       }
 
-      const notesFromAPI = apiData.data.listNotes.items;
+      const notesFromAPI = apiData.data.listTodos.items;
 
       // Process each note, especially handling the image URL fetch
       await Promise.all(notesFromAPI.map(async (note) => {
@@ -83,7 +83,7 @@ const App = ({ signOut }) => {
   // Assumed existing implementations for client.graphql, getUrl, and setNotes
 
 
-  async function createNote(event) {
+  async function createTodo(event) {
     event.preventDefault();
     const form = new FormData(event.target);
     /* const image = form.get("image"); */
@@ -99,19 +99,19 @@ const App = ({ signOut }) => {
 
     };
     await client.graphql({
-      query: createNoteMutation,
+      query: createTodoMutation,
       variables: { input: data },
     });
     fetchNotes();
     event.target.reset();
   }
 
-  async function deleteNote({ id, username }) {
+  async function deleteTodo({ id, username }) {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
     await remove({ key: username });
     await client.graphql({
-      query: deleteNoteMutation,
+      query: deleteTodoMutation,
       variables: { input: { id } },
     });
   }
@@ -143,7 +143,7 @@ const App = ({ signOut }) => {
         <AFESummary notes={notes} />
         <ErrorSummary notes={notes} />
       </div>
-      <AuditForm onSubmit={createNote} />
+      <AuditForm onSubmit={createTodo} />
       <View>
         <Heading level={2} style={{ textAlign: 'center' }}><strong>Total Audits: {notes.length}</strong></Heading>
         {notes && notes.length > 0 && (
@@ -186,7 +186,7 @@ const App = ({ signOut }) => {
               </div>
             </div>
             <Button
-              onClick={() => deleteNote(note)}
+              onClick={() => deleteTodo(note)}
               className="DeleteButton"
               style={{ marginBottom: '1rem', color: "white", backgroundColor: "red" }}
             >
