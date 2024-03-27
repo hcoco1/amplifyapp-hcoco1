@@ -88,7 +88,7 @@ const App = ({ signOut }) => {
     const form = new FormData(event.target);
     /* const image = form.get("image"); */
     const data = {
-      /* auditor: form.get("auditor"), */
+       auditor: form.get("auditor"), 
       period: form.get("period"),
       username: form.get("username"),
       afe: form.get("afe"),
@@ -174,6 +174,7 @@ const App = ({ signOut }) => {
                 <Text className="NoteText">- <strong>Created At:</strong> {formatTimestampToUTC(note.createdAt)}</Text>
               </div>
               <div className="note-group">
+              <Text className="NoteText">- <strong>Auditor:</strong> {note.auditor}</Text>
                 <Text className="NoteText">- <strong>Period:</strong> {note.period}</Text>
                 <Text className="NoteText">- <strong>Associate:</strong> {note.username}</Text>
                 <Text className="NoteText">- <strong>AFE:</strong> {note.afe}</Text>
