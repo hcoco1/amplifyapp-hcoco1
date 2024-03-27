@@ -5,7 +5,7 @@ export const onCreateNote = /* GraphQL */ `
   subscription OnCreateNote($filter: ModelSubscriptionNoteFilterInput) {
     onCreateNote(filter: $filter) {
       id
-      auditor
+ 
       period
       username
       afe
@@ -23,7 +23,7 @@ export const onUpdateNote = /* GraphQL */ `
   subscription OnUpdateNote($filter: ModelSubscriptionNoteFilterInput) {
     onUpdateNote(filter: $filter) {
       id
-      auditor
+ 
       period
       username
       afe
@@ -41,7 +41,7 @@ export const onDeleteNote = /* GraphQL */ `
   subscription OnDeleteNote($filter: ModelSubscriptionNoteFilterInput) {
     onDeleteNote(filter: $filter) {
       id
-      auditor
+
       period
       username
       afe
