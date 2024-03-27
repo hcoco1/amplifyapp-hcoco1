@@ -125,6 +125,8 @@ const App = ({ signOut }) => {
 
   }
 
+
+
   return (
 
     <View className="App">
