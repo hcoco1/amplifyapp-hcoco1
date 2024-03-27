@@ -67,7 +67,7 @@ const AuditForm = ({ onSubmit }) => {
               { label: 'Item Missing', value: 'Pack Item Missing' },
               { label: 'Item Damaged', value: 'Pack Item Damaged' },
               { label: 'Item Unscannable', value: 'Pack Item Unscannable' },
-              { label: 'Ship Exception', value: 'Ship Exception' },
+              { label: 'Shipment Exception', value: 'Shipment Exception' },
             ]}
           />
           <FormSelect
