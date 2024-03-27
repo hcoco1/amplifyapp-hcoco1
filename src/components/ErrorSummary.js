@@ -5,15 +5,15 @@ import './ErrorSummary.css'; // Import the CSS file
 const ErrorSummary = ({ notes, className }) => {
   // Define the fields and values you want to count
   const fieldsToCount = [
-    { field: 'error', value: 'Rebin Error Ind' },
-    { field: 'error', value: 'Ind Error Ind' },
+    { field: 'error', value: 'Rebin Error Indicator' },
+    { field: 'error', value: 'Induct Error Indicator' },
     { field: 'error', value: 'Induct Shortage' },
     { field: 'error', value: 'Wrong Box' },
     { field: 'error', value: 'Slam Kickout' },
-    { field: 'error', value: 'Item Missing' },
-    { field: 'error', value: 'Item Damaged' },
-    { field: 'error', value: 'Item Unscannable' },
-    { field: 'error', value: 'Ship Exception' },
+    { field: 'error', value: 'Pack Item Missing' },
+    { field: 'error', value: 'Pack Item Damaged' },
+    { field: 'error', value: 'Pack Item Unscannable' },
+    { field: 'error', value: 'Shipment Exception' },
     // Extend this array based on your data model and requirements
   ];
 

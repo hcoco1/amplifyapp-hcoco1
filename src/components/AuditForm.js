@@ -59,14 +59,14 @@ const AuditForm = ({ onSubmit }) => {
             onChange={(e) => setValue(e.target.value)}
             options={[
               { label: 'Error', value: '' },
-              { label: 'Rebin Error Ind', value: 'Rebin Error Ind' },
-              { label: 'Ind Error Ind', value: 'Ind Error Ind' },
+              { label: 'Rebin Error Indicator', value: 'Rebin Error Indicator' },
+              { label: 'Induct Error Indicator', value: 'Induct Error Indicator' },
               { label: 'Induct Shortage', value: 'Induct Shortage' },
               { label: 'Wrong Box', value: 'Wrong Box' },
               { label: 'Slam Kickout', value: 'Slam Kickout' },
-              { label: 'Item Missing', value: 'Item Missing' },
-              { label: 'Item Damaged', value: 'Item Damaged' },
-              { label: 'Item Unscannable', value: 'Item Unscannable' },
+              { label: 'Item Missing', value: 'Pack Item Missing' },
+              { label: 'Item Damaged', value: 'Pack Item Damaged' },
+              { label: 'Item Unscannable', value: 'Pack Item Unscannable' },
               { label: 'Ship Exception', value: 'Ship Exception' },
             ]}
           />

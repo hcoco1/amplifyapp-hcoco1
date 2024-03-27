@@ -29,7 +29,6 @@ import AuditForm from "./components/AuditForm";
 const client = generateClient();
 
 const App = ({ signOut }) => {
-  const [user, setUser] = useState(null);
   const [filter, setFilter] = useState('');
   const [notes, setNotes] = useState([]);
 
