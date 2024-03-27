@@ -11,6 +11,19 @@ const AuditForm = ({ onSubmit }) => {
 
         <form margin="3rem 0" onSubmit={onSubmit}>
         <div className="form">
+
+        <FormSelect
+          name="auditor"
+          value={newTodo.afe}
+          onChange={handleInputChange}
+          options={[
+            { label: 'Auditor', value: '' },
+            { label: 'Ivan', value: 'Ivan' },
+            { label: 'Yoanli', value: 'Yoanli' },
+            { label: 'Guest', value: 'Guest' },
+          ]}
+        />
+
          <FormSelect
             className="form-select"
             name="period"
