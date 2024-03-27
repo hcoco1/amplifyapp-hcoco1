@@ -14,8 +14,7 @@ const AuditForm = ({ onSubmit }) => {
 
         <FormSelect
           name="auditor"
-          value={newTodo.afe}
-          onChange={handleInputChange}
+          onChange={(e) => setValue(e.target.value)}
           options={[
             { label: 'Auditor', value: '' },
             { label: 'Ivan', value: 'Ivan' },
