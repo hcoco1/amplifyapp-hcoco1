@@ -28,12 +28,12 @@ const PeriodSummary = ({ notes, className }) => {
     return (
       <div className={`audits-summary-container ${className}`}>
         <div>
-          <h2 className="audits-summary-title">Period Totals</h2>
+          <h2 className="audits-summary-title">Period</h2>
         </div>
         
         <div className="audits-summary-chart">
           <BarChart
-            width={500}
+            width={600}
             height={300}
             data={data}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}

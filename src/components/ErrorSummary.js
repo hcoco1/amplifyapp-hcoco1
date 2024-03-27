@@ -22,6 +22,8 @@ const ErrorSummary = ({ notes, className }) => {
     return notes.filter(note => note[field] === value).length;
   };
 
+  const totalErrors = fieldsToCount.reduce((acc, item) => acc + countNotes(item.field, item.value), 0);
+
   // Data for the pie chart
   const data = fieldsToCount.map(item => ({
     name: item.value,
@@ -33,7 +35,7 @@ const ErrorSummary = ({ notes, className }) => {
   return (
     <div className={`audits-summary-container ${className}`}>
       <div>
-        <h2 className="audits-summary-title">Error Totals</h2>
+        <h2 className="audits-summary-title">Errors</h2>
       </div>
       
       <div className="audits-summary-chart">
@@ -47,13 +49,14 @@ const ErrorSummary = ({ notes, className }) => {
             fill="#8884d8"
             dataKey="value"
             nameKey="name"
-            /* label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} */
+             /* label={({ percent }) => ` ${(percent * 100).toFixed(0)}%`}  */
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
             ))}
           </Pie>
           <Tooltip />
+        
           <Legend />
         </PieChart>
       </div>

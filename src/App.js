@@ -89,7 +89,7 @@ const App = ({ signOut }) => {
     const form = new FormData(event.target);
     /* const image = form.get("image"); */
     const data = {
-      auditor: form.get("auditor"),
+      /* auditor: form.get("auditor"), */
       period: form.get("period"),
       username: form.get("username"),
       afe: form.get("afe"),
@@ -116,7 +116,7 @@ const App = ({ signOut }) => {
       variables: { input: { id } },
     });
   }
-  const [value, setValue] = useState('');
+ 
 
 
   function formatTimestampToUTC(timestamp) {
@@ -129,29 +129,20 @@ const App = ({ signOut }) => {
   return (
 
     <View className="App">
-
       <View>
-
         <Heading level={1} style={{ textAlign: 'center' }}>Notes Taking App </Heading>
-        <Button onClick={signOut} className="SignOutButton">Sign Out</Button>
+
+       
+        <button onClick={signOut} className="signOutButton"><strong>Sign Out</strong></button>
       </View>
-
       <Heading level={1} style={{ textAlign: 'center' }}>Total Audits:{notes.length} </Heading>
-
-      <ReportGenerator notes={notes} />
-
-
-
+      
       <div>
         <PeriodSummary notes={notes} />
         <AFESummary notes={notes} />
         <ErrorSummary notes={notes} />
       </div>
-
-
       <AuditForm onSubmit={createNote} />
-
-
       <View>
         <Heading level={2} style={{ textAlign: 'center' }}><strong>Total Audits: {notes.length}</strong></Heading>
         {notes && notes.length > 0 && (
@@ -159,7 +150,6 @@ const App = ({ signOut }) => {
             <ReportGenerator notes={notes} />
           </div>
         )}
-
         <View>
           <input
             type="text"
@@ -170,17 +160,7 @@ const App = ({ signOut }) => {
           />
         </View>
       </View>
-
-
-
-
-
-
-
-
       <View className="NotesContainer">
-
-
         {notes.filter((note) => {
           return filter === '' || note.username?.toLowerCase().includes(filter.toLowerCase());
         }).map((note, index) => (
@@ -190,11 +170,8 @@ const App = ({ signOut }) => {
                 <Text className="NoteText">
                   - <strong>N:</strong> <strong><span style={{ color: 'red' }}>{index + 1}</span></strong>
                 </Text>
-
                 <Text className="NoteText">- <strong>Created At:</strong> {formatTimestampToUTC(note.createdAt)}</Text>
-
               </div>
-
               <div className="note-group">
                 <Text className="NoteText">- <strong>Period:</strong> {note.period}</Text>
                 <Text className="NoteText">- <strong>Associate:</strong> {note.username}</Text>
@@ -202,13 +179,11 @@ const App = ({ signOut }) => {
                 <Text className="NoteText">- <strong>Process:</strong> {note.process}</Text>
                 <Text className="NoteText">- <strong>Error:</strong> {note.error}</Text>
               </div>
-
               <div className="note-group">
                 <Text className="NoteText">- <strong>🖌Coaching:</strong> {note.coaching}</Text>
                 <Text className="NoteText">- <strong>💣Observations:</strong> {note.durable}</Text>
               </div>
             </div>
-
             <Button
               onClick={() => deleteNote(note)}
               className="DeleteButton"
@@ -218,11 +193,8 @@ const App = ({ signOut }) => {
             </Button>
           </React.Fragment>
         ))}
-
       </View>
-
     </View>
   );
 };
-
 export default withAuthenticator(App);

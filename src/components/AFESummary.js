@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import './AFESummary.css'; // Import the CSS file
 
 const AFESummary = ({ notes, className }) => {
@@ -26,10 +26,10 @@ const AFESummary = ({ notes, className }) => {
 
   return (
     <div className={`audits-summary-container ${className}`}>
-      <h2 className="audits-summary-title">AFE Totals</h2>
+      <h2 className="audits-summary-title">AFE</h2>
       <div className="audits-summary-chart">
         <BarChart
-          width={500}
+          width={600}
           height={300}
           data={data}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
@@ -38,9 +38,14 @@ const AFESummary = ({ notes, className }) => {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
+          
          
           <Bar dataKey="count" fill={colors[1]} />
         </BarChart>
+
+
+
+        
       </div>
 
       {/* Display counts */}
