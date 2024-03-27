@@ -21,7 +21,8 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type NoteUpdateFormInputValues = {
+export declare type TodoUpdateFormInputValues = {
+    auditor?: string;
     period?: string;
     username?: string;
     afe?: string;
@@ -30,7 +31,8 @@ export declare type NoteUpdateFormInputValues = {
     coaching?: string;
     durable?: string;
 };
-export declare type NoteUpdateFormValidationValues = {
+export declare type TodoUpdateFormValidationValues = {
+    auditor?: ValidationFunction<string>;
     period?: ValidationFunction<string>;
     username?: ValidationFunction<string>;
     afe?: ValidationFunction<string>;
@@ -40,8 +42,9 @@ export declare type NoteUpdateFormValidationValues = {
     durable?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type NoteUpdateFormOverridesProps = {
-    NoteUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+export declare type TodoUpdateFormOverridesProps = {
+    TodoUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    auditor?: PrimitiveOverrideProps<TextFieldProps>;
     period?: PrimitiveOverrideProps<TextFieldProps>;
     username?: PrimitiveOverrideProps<TextFieldProps>;
     afe?: PrimitiveOverrideProps<TextFieldProps>;
@@ -50,15 +53,15 @@ export declare type NoteUpdateFormOverridesProps = {
     coaching?: PrimitiveOverrideProps<TextFieldProps>;
     durable?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type NoteUpdateFormProps = React.PropsWithChildren<{
-    overrides?: NoteUpdateFormOverridesProps | undefined | null;
+export declare type TodoUpdateFormProps = React.PropsWithChildren<{
+    overrides?: TodoUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    note?: any;
-    onSubmit?: (fields: NoteUpdateFormInputValues) => NoteUpdateFormInputValues;
-    onSuccess?: (fields: NoteUpdateFormInputValues) => void;
-    onError?: (fields: NoteUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: NoteUpdateFormInputValues) => NoteUpdateFormInputValues;
-    onValidate?: NoteUpdateFormValidationValues;
+    todo?: any;
+    onSubmit?: (fields: TodoUpdateFormInputValues) => TodoUpdateFormInputValues;
+    onSuccess?: (fields: TodoUpdateFormInputValues) => void;
+    onError?: (fields: TodoUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: TodoUpdateFormInputValues) => TodoUpdateFormInputValues;
+    onValidate?: TodoUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function NoteUpdateForm(props: NoteUpdateFormProps): React.ReactElement;
+export default function TodoUpdateForm(props: TodoUpdateFormProps): React.ReactElement;

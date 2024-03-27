@@ -29,7 +29,6 @@ export default function NoteCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    auditor: "",
     period: "",
     username: "",
     afe: "",
@@ -37,9 +36,8 @@ export default function NoteCreateForm(props) {
     error: "",
     coaching: "",
     durable: "",
-    image: "",
+    auditor: "",
   };
-  const [auditor, setAuditor] = React.useState(initialValues.auditor);
   const [period, setPeriod] = React.useState(initialValues.period);
   const [username, setUsername] = React.useState(initialValues.username);
   const [afe, setAfe] = React.useState(initialValues.afe);
@@ -47,10 +45,9 @@ export default function NoteCreateForm(props) {
   const [error, setError] = React.useState(initialValues.error);
   const [coaching, setCoaching] = React.useState(initialValues.coaching);
   const [durable, setDurable] = React.useState(initialValues.durable);
-  const [image, setImage] = React.useState(initialValues.image);
+  const [auditor, setAuditor] = React.useState(initialValues.auditor);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setAuditor(initialValues.auditor);
     setPeriod(initialValues.period);
     setUsername(initialValues.username);
     setAfe(initialValues.afe);
@@ -58,11 +55,10 @@ export default function NoteCreateForm(props) {
     setError(initialValues.error);
     setCoaching(initialValues.coaching);
     setDurable(initialValues.durable);
-    setImage(initialValues.image);
+    setAuditor(initialValues.auditor);
     setErrors({});
   };
   const validations = {
-    auditor: [],
     period: [],
     username: [],
     afe: [],
@@ -70,7 +66,7 @@ export default function NoteCreateForm(props) {
     error: [],
     coaching: [],
     durable: [],
-    image: [],
+    auditor: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -98,7 +94,6 @@ export default function NoteCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          auditor,
           period,
           username,
           afe,
@@ -106,7 +101,7 @@ export default function NoteCreateForm(props) {
           error,
           coaching,
           durable,
-          image,
+          auditor,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -136,11 +131,20 @@ export default function NoteCreateForm(props) {
               modelFields[key] = null;
             }
           });
+          const modelFieldsToSave = {
+            period: modelFields.period,
+            username: modelFields.username,
+            afe: modelFields.afe,
+            process: modelFields.process,
+            error: modelFields.error,
+            coaching: modelFields.coaching,
+            durable: modelFields.durable,
+          };
           await client.graphql({
             query: createNote.replaceAll("__typename", ""),
             variables: {
               input: {
-                ...modelFields,
+                ...modelFieldsToSave,
               },
             },
           });
@@ -161,54 +165,6 @@ export default function NoteCreateForm(props) {
       {...rest}
     >
       <SelectField
-        label="Auditor"
-        placeholder="Please select an option"
-        isDisabled={false}
-        value={auditor}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              auditor: value,
-              period,
-              username,
-              afe,
-              process,
-              error,
-              coaching,
-              durable,
-              image,
-            };
-            const result = onChange(modelFields);
-            value = result?.auditor ?? value;
-          }
-          if (errors.auditor?.hasError) {
-            runValidationTasks("auditor", value);
-          }
-          setAuditor(value);
-        }}
-        onBlur={() => runValidationTasks("auditor", auditor)}
-        errorMessage={errors.auditor?.errorMessage}
-        hasError={errors.auditor?.hasError}
-        {...getOverrideProps(overrides, "auditor")}
-      >
-        <option
-          children="Ivan"
-          value="Ivan"
-          {...getOverrideProps(overrides, "auditoroption0")}
-        ></option>
-        <option
-          children="Yoanli"
-          value="Yoanli"
-          {...getOverrideProps(overrides, "auditoroption1")}
-        ></option>
-        <option
-          children="Guest"
-          value="Guest"
-          {...getOverrideProps(overrides, "auditoroption2")}
-        ></option>
-      </SelectField>
-      <SelectField
         label="Period"
         placeholder="Please select an option"
         isDisabled={false}
@@ -217,7 +173,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period: value,
               username,
               afe,
@@ -225,7 +180,7 @@ export default function NoteCreateForm(props) {
               error,
               coaching,
               durable,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.period ?? value;
@@ -270,7 +225,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username: value,
               afe,
@@ -278,7 +232,7 @@ export default function NoteCreateForm(props) {
               error,
               coaching,
               durable,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.username ?? value;
@@ -302,7 +256,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username,
               afe: value,
@@ -310,7 +263,7 @@ export default function NoteCreateForm(props) {
               error,
               coaching,
               durable,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.afe ?? value;
@@ -334,7 +287,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username,
               afe,
@@ -342,7 +294,7 @@ export default function NoteCreateForm(props) {
               error,
               coaching,
               durable,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.process ?? value;
@@ -366,7 +318,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username,
               afe,
@@ -374,7 +325,7 @@ export default function NoteCreateForm(props) {
               error: value,
               coaching,
               durable,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.error ?? value;
@@ -398,7 +349,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username,
               afe,
@@ -406,7 +356,7 @@ export default function NoteCreateForm(props) {
               error,
               coaching: value,
               durable,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.coaching ?? value;
@@ -430,7 +380,6 @@ export default function NoteCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username,
               afe,
@@ -438,7 +387,7 @@ export default function NoteCreateForm(props) {
               error,
               coaching,
               durable: value,
-              image,
+              auditor,
             };
             const result = onChange(modelFields);
             value = result?.durable ?? value;
@@ -453,16 +402,14 @@ export default function NoteCreateForm(props) {
         hasError={errors.durable?.hasError}
         {...getOverrideProps(overrides, "durable")}
       ></TextField>
-      <TextField
-        label="Image"
-        isRequired={false}
-        isReadOnly={false}
-        value={image}
+      <SelectField
+        label="Label"
+        placeholder="Please select an option"
+        value={auditor}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              auditor,
               period,
               username,
               afe,
@@ -470,21 +417,37 @@ export default function NoteCreateForm(props) {
               error,
               coaching,
               durable,
-              image: value,
+              auditor: value,
             };
             const result = onChange(modelFields);
-            value = result?.image ?? value;
+            value = result?.auditor ?? value;
           }
-          if (errors.image?.hasError) {
-            runValidationTasks("image", value);
+          if (errors.auditor?.hasError) {
+            runValidationTasks("auditor", value);
           }
-          setImage(value);
+          setAuditor(value);
         }}
-        onBlur={() => runValidationTasks("image", image)}
-        errorMessage={errors.image?.errorMessage}
-        hasError={errors.image?.hasError}
-        {...getOverrideProps(overrides, "image")}
-      ></TextField>
+        onBlur={() => runValidationTasks("auditor", auditor)}
+        errorMessage={errors.auditor?.errorMessage}
+        hasError={errors.auditor?.hasError}
+        {...getOverrideProps(overrides, "auditor")}
+      >
+        <option
+          children="Ivan"
+          value="Ivan"
+          {...getOverrideProps(overrides, "auditoroption0")}
+        ></option>
+        <option
+          children="Yoanli"
+          value="Yoanli"
+          {...getOverrideProps(overrides, "auditoroption1")}
+        ></option>
+        <option
+          children="Guest"
+          value="Guest"
+          {...getOverrideProps(overrides, "auditoroption2")}
+        ></option>
+      </SelectField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

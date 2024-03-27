@@ -1,32 +1,13 @@
 {
   "api": {
     "amplifyapphcoco1": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "amplifyapphcoco1c2f50627"
-        }
-      ],
+      "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authamplifyapphcoco1c2f50627"
-              }
-            }
-          ],
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
+              "apiKeyExpirationDays": 7
             },
             "authenticationType": "API_KEY"
           }
@@ -37,7 +18,7 @@
     }
   },
   "auth": {
-    "amplifyapphcoco1c2f50627": {
+    "amplifyapphcoco1fb6fe0dc": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {

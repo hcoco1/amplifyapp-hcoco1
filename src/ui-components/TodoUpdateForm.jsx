@@ -9,13 +9,13 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getNote } from "../graphql/queries";
-import { updateNote } from "../graphql/mutations";
+import { getTodo } from "../graphql/queries";
+import { updateTodo } from "../graphql/mutations";
 const client = generateClient();
-export default function NoteUpdateForm(props) {
+export default function TodoUpdateForm(props) {
   const {
     id: idProp,
-    note: noteModelProp,
+    todo: todoModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -25,6 +25,7 @@ export default function NoteUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    auditor: "",
     period: "",
     username: "",
     afe: "",
@@ -33,6 +34,7 @@ export default function NoteUpdateForm(props) {
     coaching: "",
     durable: "",
   };
+  const [auditor, setAuditor] = React.useState(initialValues.auditor);
   const [period, setPeriod] = React.useState(initialValues.period);
   const [username, setUsername] = React.useState(initialValues.username);
   const [afe, setAfe] = React.useState(initialValues.afe);
@@ -42,9 +44,10 @@ export default function NoteUpdateForm(props) {
   const [durable, setDurable] = React.useState(initialValues.durable);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = noteRecord
-      ? { ...initialValues, ...noteRecord }
+    const cleanValues = todoRecord
+      ? { ...initialValues, ...todoRecord }
       : initialValues;
+    setAuditor(cleanValues.auditor);
     setPeriod(cleanValues.period);
     setUsername(cleanValues.username);
     setAfe(cleanValues.afe);
@@ -54,23 +57,24 @@ export default function NoteUpdateForm(props) {
     setDurable(cleanValues.durable);
     setErrors({});
   };
-  const [noteRecord, setNoteRecord] = React.useState(noteModelProp);
+  const [todoRecord, setTodoRecord] = React.useState(todoModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await client.graphql({
-              query: getNote.replaceAll("__typename", ""),
+              query: getTodo.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
-          )?.data?.getNote
-        : noteModelProp;
-      setNoteRecord(record);
+          )?.data?.getTodo
+        : todoModelProp;
+      setTodoRecord(record);
     };
     queryData();
-  }, [idProp, noteModelProp]);
-  React.useEffect(resetStateValues, [noteRecord]);
+  }, [idProp, todoModelProp]);
+  React.useEffect(resetStateValues, [todoRecord]);
   const validations = {
+    auditor: [],
     period: [],
     username: [],
     afe: [],
@@ -105,6 +109,7 @@ export default function NoteUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          auditor: auditor ?? null,
           period: period ?? null,
           username: username ?? null,
           afe: afe ?? null,
@@ -142,10 +147,10 @@ export default function NoteUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateNote.replaceAll("__typename", ""),
+            query: updateTodo.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: noteRecord.id,
+                id: todoRecord.id,
                 ...modelFields,
               },
             },
@@ -160,9 +165,40 @@ export default function NoteUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "NoteUpdateForm")}
+      {...getOverrideProps(overrides, "TodoUpdateForm")}
       {...rest}
     >
+      <TextField
+        label="Auditor"
+        isRequired={false}
+        isReadOnly={false}
+        value={auditor}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              auditor: value,
+              period,
+              username,
+              afe,
+              process,
+              error,
+              coaching,
+              durable,
+            };
+            const result = onChange(modelFields);
+            value = result?.auditor ?? value;
+          }
+          if (errors.auditor?.hasError) {
+            runValidationTasks("auditor", value);
+          }
+          setAuditor(value);
+        }}
+        onBlur={() => runValidationTasks("auditor", auditor)}
+        errorMessage={errors.auditor?.errorMessage}
+        hasError={errors.auditor?.hasError}
+        {...getOverrideProps(overrides, "auditor")}
+      ></TextField>
       <TextField
         label="Period"
         isRequired={false}
@@ -172,6 +208,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period: value,
               username,
               afe,
@@ -202,6 +239,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period,
               username: value,
               afe,
@@ -232,6 +270,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period,
               username,
               afe: value,
@@ -262,6 +301,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period,
               username,
               afe,
@@ -292,6 +332,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period,
               username,
               afe,
@@ -322,6 +363,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period,
               username,
               afe,
@@ -352,6 +394,7 @@ export default function NoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              auditor,
               period,
               username,
               afe,
@@ -384,7 +427,7 @@ export default function NoteUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || noteModelProp)}
+          isDisabled={!(idProp || todoModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -396,7 +439,7 @@ export default function NoteUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || noteModelProp) ||
+              !(idProp || todoModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

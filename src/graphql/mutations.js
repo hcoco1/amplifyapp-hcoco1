@@ -1,14 +1,14 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createNote = /* GraphQL */ `
-  mutation CreateNote(
-    $input: CreateNoteInput!
-    $condition: ModelNoteConditionInput
+export const createTodo = /* GraphQL */ `
+  mutation CreateTodo(
+    $input: CreateTodoInput!
+    $condition: ModelTodoConditionInput
   ) {
-    createNote(input: $input, condition: $condition) {
+    createTodo(input: $input, condition: $condition) {
       id
-  
+      auditor
       period
       username
       afe
@@ -22,14 +22,14 @@ export const createNote = /* GraphQL */ `
     }
   }
 `;
-export const updateNote = /* GraphQL */ `
-  mutation UpdateNote(
-    $input: UpdateNoteInput!
-    $condition: ModelNoteConditionInput
+export const updateTodo = /* GraphQL */ `
+  mutation UpdateTodo(
+    $input: UpdateTodoInput!
+    $condition: ModelTodoConditionInput
   ) {
-    updateNote(input: $input, condition: $condition) {
+    updateTodo(input: $input, condition: $condition) {
       id
-     
+      auditor
       period
       username
       afe
@@ -43,14 +43,14 @@ export const updateNote = /* GraphQL */ `
     }
   }
 `;
-export const deleteNote = /* GraphQL */ `
-  mutation DeleteNote(
-    $input: DeleteNoteInput!
-    $condition: ModelNoteConditionInput
+export const deleteTodo = /* GraphQL */ `
+  mutation DeleteTodo(
+    $input: DeleteTodoInput!
+    $condition: ModelTodoConditionInput
   ) {
-    deleteNote(input: $input, condition: $condition) {
+    deleteTodo(input: $input, condition: $condition) {
       id
-    
+      auditor
       period
       username
       afe

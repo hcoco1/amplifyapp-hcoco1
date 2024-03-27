@@ -22,7 +22,6 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type NoteCreateFormInputValues = {
-    auditor?: string;
     period?: string;
     username?: string;
     afe?: string;
@@ -30,10 +29,9 @@ export declare type NoteCreateFormInputValues = {
     error?: string;
     coaching?: string;
     durable?: string;
-    image?: string;
+    auditor?: string;
 };
 export declare type NoteCreateFormValidationValues = {
-    auditor?: ValidationFunction<string>;
     period?: ValidationFunction<string>;
     username?: ValidationFunction<string>;
     afe?: ValidationFunction<string>;
@@ -41,12 +39,11 @@ export declare type NoteCreateFormValidationValues = {
     error?: ValidationFunction<string>;
     coaching?: ValidationFunction<string>;
     durable?: ValidationFunction<string>;
-    image?: ValidationFunction<string>;
+    auditor?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NoteCreateFormOverridesProps = {
     NoteCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    auditor?: PrimitiveOverrideProps<SelectFieldProps>;
     period?: PrimitiveOverrideProps<SelectFieldProps>;
     username?: PrimitiveOverrideProps<TextFieldProps>;
     afe?: PrimitiveOverrideProps<TextFieldProps>;
@@ -54,7 +51,7 @@ export declare type NoteCreateFormOverridesProps = {
     error?: PrimitiveOverrideProps<TextFieldProps>;
     coaching?: PrimitiveOverrideProps<TextFieldProps>;
     durable?: PrimitiveOverrideProps<TextFieldProps>;
-    image?: PrimitiveOverrideProps<TextFieldProps>;
+    auditor?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type NoteCreateFormProps = React.PropsWithChildren<{
     overrides?: NoteCreateFormOverridesProps | undefined | null;
