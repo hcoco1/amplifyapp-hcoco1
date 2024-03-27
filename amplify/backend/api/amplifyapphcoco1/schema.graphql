@@ -1,6 +1,6 @@
 type Note @model @auth(rules: [{allow: owner}, {allow: private}]) {
   id: ID!
-  auditor: String
+ 
   period: String
   username: String
   afe: String
@@ -8,6 +8,6 @@ type Note @model @auth(rules: [{allow: owner}, {allow: private}]) {
   error: String
   coaching: String
   durable: String
-  image: String
+
 }
  
