@@ -5,7 +5,7 @@ import FormInput from "./form/FormInput";
 import FormTextarea from "./form/FormTextarea";
 
 const AuditForm = ({ onSubmit }) => {
-    const [ setValue] = useState('');
+    const [value,  setValue] = useState('');
     
     return (
 
