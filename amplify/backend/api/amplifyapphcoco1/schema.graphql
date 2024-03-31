@@ -1,6 +1,4 @@
-type Todo
-  @model
-  @auth(rules: [{ allow: owner }]) {
+type Todo @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   auditor: String
   period: String
@@ -11,3 +9,4 @@ type Todo
   coaching: String
   durable: String
 }
+ 
