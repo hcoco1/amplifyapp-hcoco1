@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import {
- 
   Button,
   Heading,
   Text,
@@ -17,7 +16,6 @@ import {
 } from "./graphql/mutations";
 import { generateClient } from 'aws-amplify/api';
 import { getUrl, remove } from 'aws-amplify/storage';
-
 import ReportGenerator from "./components/ReportGenerator";
 import AuditForm from "./components/AuditForm";
 import AFESummary from "./components/AFESummary";
